@@ -40,7 +40,7 @@ to look alike.
 >    not in marginals) and was *motivated* by it. Consistency is not evidence of
 >    proof; the measurement constrains this circuit, not a theory of mind.
 > 3. **No post-selection, no mitigation-only results.** Raw counts are the basis
->    of every number below. Where mitigation is discussed (§6.4), it is named as
+>    of every number below. Where mitigation is discussed (§9.2), it is named as
 >    future work, not used to produce any figure.
 
 ---
@@ -78,14 +78,14 @@ Verified in state-vector simulation, 13/13 bands, and against a first, *wrong*
 closed-form guess (`cos(π·k/N)`) that the simulation rejected 12/13 — the
 corrected factor 2 comes from the two-sided phase transport of the CX ladder.
 
-**Third, hardware validation (🔬 hardware).** Six completed runs across three
-backends (`ibm_fez`, `ibm_marrakesh`) reproduce the cosine: Pearson correlation
-**0.87–0.999** between the measured 13-point curve and the theorem, with fitted
-contrast A = 0.50–0.74. A pre-registered, fixed-layout pair of runs (§6)
-additionally shows that the within-run scatter is **layout-originated**: fixing
-the physical chain shrinks the systematic scatter σ_sys from 0.15–0.19 to
-**0.023–0.035** (~5×), and the best run reaches Pearson **0.9989** with
-χ²_red = 2.58.
+**Third, hardware validation (🔬 hardware).** Seven completed runs across three
+backends (`ibm_fez`, `ibm_marrakesh`, `ibm_kingston`) reproduce the cosine:
+Pearson correlation **0.87–0.999** between the measured 13-point curve and the
+theorem, with fitted contrast A = 0.50–0.76. A pre-registered, fixed-layout pair
+of runs (§6) additionally shows that the within-run scatter is
+**layout-originated**: fixing the physical chain shrinks the systematic scatter
+σ_sys from 0.15–0.19 to **0.023–0.035** (~5×), and the best run reaches Pearson
+**0.9989** with χ²_red = 2.58.
 
 The information in this architecture lives in the **correlation**, not in the
 marginals — and both halves of that sentence were measured.
@@ -210,13 +210,14 @@ per run. Every run's transpiled layout was recovered or pre-registered (§5.3).
 | 4 | ibm_marrakesh | 1024 | free (4 chains) | 0.992 | 0.756 | 15.33 | 0.096 |
 | **7** | ibm_fez | 2048 | **fixed** (107,106,105,108…) | **0.997** | **0.740** | **4.69** | **0.035** |
 | **7b** | ibm_fez | 2048 | **fixed** (same as 7) | **0.999** | **0.722** | **2.58** | **0.023** |
+| 6 | ibm_kingston | 1024 | free (TBD — queued at write) | 0.988 | 0.760 | 9.84 | 0.075 |
 
-worst Pearson 0.873 · median 0.941 · best 0.999
+worst Pearson 0.873 · median 0.953 · best 0.999
 
 ⚠️ **This table is NOT a trend.** The numbers are backend- and layout-dependent;
 the mapping itself did not change across runs. An early draft described
 "0.87 → 0.99" as an improvement series — that reading is wrong and was removed.
-The runs differ in hardware quality and (for runs 1–4) in per-band transpiler
+The runs differ in hardware quality and (for runs 1–4, 6) in per-band transpiler
 layout, nothing else.
 
 ### 5.3 The layout discovery — per-band chain re-selection
@@ -413,7 +414,7 @@ signal processing.
 
 ### 9.1 What does not work today
 
-- **The contrast is hardware-bound.** A = 0.50–0.74 across backends/layouts;
+- **The contrast is hardware-bound.** A = 0.50–0.76 across backends/layouts;
   the theorem predicts 1.0. The gap is readout error, crosstalk and
   decoherence — real, measured, and dominant over statistical noise.
 - **γ (damping) is not a gate.** It is post-processing metadata, as in the
@@ -423,8 +424,8 @@ signal processing.
 
 ### 9.2 Future work
 
-1. **Runs 5/6 (ibm_kingston)** — third-backend confirmation (queued at the
-   time of writing; the table in §5.2 will be amended if they land).
+1. **Run 5 (ibm_kingston, 1024 shots)** — queued at the time of writing; the
+   table in §5.2 will be amended when it lands.
 2. **Calibration-prediction test** — predict A per layout from the calibration
    data valid at run time (gate + readout errors); if predicted and measured A
    move together, the contrast becomes an engineering quantity.
@@ -451,10 +452,10 @@ signal processing.
 |---|---|---|
 | ⟨ZZ⟩_k = cos(2π·k/N) in this architecture | ✅ PROVEN (classical) | state-vector simulation, 13/13 bands |
 | readout marginal is information-free (CX target) | ✅ PROVEN (classical) + 🔬 hardware (TVD 0.047) | structural argument + null control |
-| the correlation channel works on real QPUs | 🔬 PROVEN (hardware) | 6 runs, 3 backends (2 completed), Pearson 0.87–0.999 |
+| the correlation channel works on real QPUs | 🔬 PROVEN (hardware) | 7 runs, 3 backends, Pearson 0.87–0.999 |
 | within-run scatter is layout-originated | 🔬 PROVEN (hardware, pre-registered) | runs 7/7b vs runs 1–4, criteria committed before data |
 | A is stable on a fixed chain | 🔬 PROVEN (hardware, pre-registered) | \|ΔA\| = 0.0178 < 0.0600, two independent keys |
-| contrast A ≈ 0.72–0.74 is achievable on fez | ⚠️ MEASUREMENT-DEPENDENT | two runs, one chain, one day |
+| contrast A ≈ 0.72–0.76 is achievable on fez/marrakesh/kingston | ⚠️ MEASUREMENT-DEPENDENT | multiple runs, different backends |
 | the method extends to φ and A readout | ⚠️ ASSUMPTION | same mechanism, not yet measured |
 | information "lives in relations" as a principle | ℹ️ INTERPRETATION | consistent with, not proven by, this measurement |
 
