@@ -275,6 +275,44 @@ kontrasztja (0.756 / 0.740) — a rosszabb szabad-layout láncoké (0.50–0.67)
 
 ---
 
+## FÁZIS 11 — A FUNDAMENTÁLIS HIBÁK FELTÁRÁSA ÉS KORREKCIÓJA (2026-10-11)
+
+A külső és belső vizsgálat feltárta a projekt legmélyebb konceptuális tévedését:
+
+### 11.1 A „korrelációs tétel” analitikus felbomlása egyqubites Rabi-görbére
+
+A mért `⟨Z_readout · Z_partner⟩` paritáskorreláció a mérés előtti Hadamard kapuk miatt az `X_readout ⊗ X_partner` megfigyelhetőt méri.
+A Heisenberg-képben ezt visszakövetve a `CX(partner → readout)` kapun át:
+```
+(CX)† (X_partner ⊗ X_readout) CX = X_partner ⊗ I_readout
+```
+- A **readout qubit (`q₀`) teljesen kiesik az operátorból**!
+- Az operátor a partner qubiten `X₁`.
+- A megelőző `H(q₁)` ezt `Z₁`-re fordítja: `H† X₁ H = Z₁`.
+- A partner qubitre alkalmazott forgatás `RX(2πk/13)` az alapállapotból `|0⟩`:
+  `⟨0| RX(-θ) Z₁ RX(θ) |0⟩ = cos(θ) = cos(2πk/13)`.
+
+A 12 további rezervoár-qubit pedig `CX(q_i → q₀)` kapukkal kapcsolódik, ahol a célbit `q₀` az `X` bázisban invariáns, így a többi 12 qubit **egyáltalán nem hat a megfigyelhetőre** — csupán spektátorként kapuhibát és dekoherenciát adnak hozzá.
+
+### 11.2 A „no-go” állítás hamissága
+
+A v1 fázisban hangoztatott no-go állítás (az információ nincs a marginálisokban) cáfolata:
+- A readout qubit (`q₀`) valóban nem hordoz információt, de ez triviális: `A=0.5, φ=0` esetén `q₀` a `|+⟩` állapotba van forgatva, a záró Hadamard után pedig `|0⟩`-ba esik (`⟨Z₀⟩ = +1`).
+- A partner qubit (`q₁`) saját marginálisa azonban **pontosan megegyezik a kétqubites korrelációval**: `⟨Z₁⟩ = cos(2πk/13)`!
+- Az információ tehát nem a qubitek közötti titokzatos viszonyban él, hanem közvetlenül a partner qubit egyedi állapotában.
+
+### 11.3 A statisztikai kvantilisek és additív offset korrekciója
+
+1. **Kvantilisek:** 12 szabadsági foknál a χ² 68%-os intervalluma valójában **0.85× – 1.29×** (nem 0.72×–1.36×). A döntést ez nem érinti: a rögzített layoutos futások (`σ_sys = 0.023` és `0.035`) felső határa így is jóval `0.10` alatt van.
+2. **Additív konstans:** a hardveres illesztésben a tisztán multiplikatív `A · cos(θ)` modell mellett egy kis additív eltolás (`c ≈ 0.03–0.06`) is jelen van a readout aszimmetria miatt.
+
+### 11.4 A run7b kettős Job ID-ja
+
+- `db5frpkvf2bc73cvrk4g`: a Run 7b első indítása (kézi 156-qubites építés, nem ISA-identikus, törölve/lemondva).
+- `db5g2jg4qg6s73c3e3vg`: a Run 7b második, érvényes indítása (a Run 7-tel bitre-azonos ISA transpiláció). Mindkét azonosító rögzítve.
+
+---
+
 ## ÖSSZEGZÉS: mit tanítottak a hibás adatok
 
 | Hiba | Mi volt | Mit tanított |
@@ -290,17 +328,16 @@ kontrasztja (0.756 / 0.740) — a rosszabb szabad-layout láncoké (0.50–0.67)
 | „elveszett layout" | téves minősítés | „nem találom" ≠ „nem létezik" — job.inputs-ban meglett |
 | Schuld 2008 | hibás hivatkozás | az arXiv-id 2020-as, a papír 2021-es — ellenőrizni kell, nem emlékezetből |
 | Pearson-trend-narratíva | félrevezető sorrend | backend-variabilitás ≠ időbeli javulás |
+| **„Kétqubites tétel”** | **analitikus felbomlás** | **A mért ⟨ZZ⟩ analitikusan a partner qubit egyedi ⟨Z₁⟩ Rabi-görbéje; q₀ és a 12 spektátor qubit kiesik az operátorból.** |
 
 ---
 
 ## A ZÁRT EREDMÉNY
 
-**A tétel:** ⟨Z_readout·Z_reservoir⟩ = cos(2π·band/13) — X-bázisú két-qubites kiolvasás
-**A no-go:** a marginalsban az információ matematikailag nulla (CX-tétel, hardveren TVD 0.047)
-**A validáció:** 6 kész futás, 3 backend, Pearson 0.87–0.999; a legjobb: 0.999 (rögzített lánc)
-**A szisztematika:** a σ_sys layout-eredetű — rögzített lánc esetén ~5×-re zsugorodik (ELFOGADVA)
-**A drift:** rögzített láncon az A stabil (0.740/0.722, 2 független kulccsal)
-**A novelty:** a kompozíció nem található meg a prior-artban (~180 eredmény, 2 nulla-találat)
+**A valóság:** A mérés egy ismert egyqubites Rabi-oszcillációt (`cos(2π·k/13)`) reprodukál egy 14-qubites környezetben.
+**A kísérleti lecke:** A sávonként szabadon futó transpiler 2–4 különböző láncot választ, ami `σ_sys ≈ 0.15–0.20`-as szisztematikus zajt okoz. A rögzített layout ezt a kísérlettervezési műterméket ~5-szörösére (`σ_sys ≈ 0.023–0.035`) szorítja vissza.
+**A hardveres stabilitás:** 3 különböző Heron QPU-n a Rabi-kontraszt stabilan 0.72–0.76 között mozog, a futások közötti drift minimális (`ΔA = 0.018`).
+
 
 ## A NYÍLT KÉRDÉSEK
 
