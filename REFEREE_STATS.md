@@ -187,8 +187,8 @@ tag nem layout-, hanem per-qubit kalibrációs eredetű (TLS-fluktuáció, drift
 - Ugyanaz a rögzített layout, mint Run 7 (fizikai lánc: 107, 106, 105, 108, …),
   ugyanazzal a paraméterezett-egyszer-transpile módszerrel (156-qubites sablonra
   kézzel építve, mert a transpiler nem determinisztikus)
-- 2. kulcs (apikey (1).json), ibm_fez, 2048 shots, job: db5frpkvf2bc73cvrk4g
-- Így a döntéshez KÉT független futás van ugyanazon a láncon (7: kulcs-1, 7b: kulcs-2)
+- 2. kulcs (apikey (1).json), ibm_fez, 2048 shots, job: db5frpkvf2bc73cvrk4g (kézi sablon, lemondva)
+- A ténylegesen lefutott 7b (db5g2jg4qg6s73c3e3vg) a Run 7-tel azonos paraméterezett sablonból származik; a döntéshez két egymást követő futás van ugyanazon a láncon
 
 ### 6) A mélység-korreláció szignifikanciája — pontosítás
 

@@ -247,7 +247,7 @@ A pre-regisztrált kritériumok szerint (commit 3acb8c8), az eredmény láthatá
 | Futás | σ_sys | 68% CI | felső határ vs. küszöb |
 |---|---|---|---|
 | run7 (rögzített lánc) | 0.0348 | [0.025, 0.047] | 0.047 < 0.10 ✓ |
-| run7b (azonos lánc, más kulcs) | 0.0231 | [0.017, 0.031] | 0.031 < 0.10 ✓ |
+| run7b (azonos lánc, második futás) | 0.0231 | [0.017, 0.031] | 0.031 < 0.10 ✓ |
 
 A szabad-layout futások σ_sys-e (0.148–0.189) a rögzített lánc esetén
 **~5×-ösére zsugorodott** (0.023–0.035). **A futáson-belüli szórás
@@ -256,7 +256,7 @@ layout-eredetű** — a transpiler sávonkénti lánc-újrválasztása okozta.
 ### (B) DRIFT-KÉRDÉS: **STABIL** ✅
 
 |A₇ − A₇b| = **0.0178** < max(2·σ_A, 0.06) = 0.0600 — ugyanaz a lánc ugyanazt
-a kontrasztot adja (A = 0.740 vs 0.722), két független kulccsal, bitre-azonos
+a kontrasztot adja (A = 0.740 vs 0.722), második futással, bitre-azonos
 ISA-áramkörökkel. **Nincs drift-jezés.**
 
 ### A teljes kép most már konzisztens
