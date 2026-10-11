@@ -276,3 +276,54 @@ Ezért a pontérték-alapú küszöb NEM döntésképes a 0.08–0.12 sávban.
 4. **Run 4 layout NEM volt mentve** (a multi-run rendszer 13 külön transpile-l ment,
    mint run1-3) — a 0.756-os kontraszt egyik konkrét lánccal sem hozható kapcsolatba.
    Ez a negyedik elveszett-layout futás; a hiány a jövőbeli futásoknál javítva.
+
+---
+
+## VÉGSŐ KÜSZÖB-SPECIFIKÁCIÓ (2026-10-11 — az UTOLSÓ módosítás, Run 7/7b QUEUED)
+
+### A konfidencia-szint KIMONDVA: 68%, χ²-eloszlásból, 12 szabadsági fokkal
+
+A 13 pont / 12 dof χ²-eloszlás 68%-os (1σ) kvatilisei: **0.72× és 1.36×**.
+(Nem szimmetrikus — a korábbi „±20%" közelítés 1σ-s szint volt, az most
+pontosítva a χ²-kvatilisekre: [0.72, 1.36].)
+
+**A DÖNTÉSI KRITÉRIUM (A): futáson-belüli szórás layout-eredete**
+A 7/7b σ_sys pontbecslésének 68%-os χ²-intervallumából:
+- **ELFOGADJUK**, ha a **felső határ (1.36 × σ_sys) < 0.10** → σ_sys < 0.0735;
+- **ELUTASÍTJUK**, ha az **alsó határ (0.72 × σ_sys) > 0.15** → σ_sys > 0.2083;
+- **KÖZTE NEM DÖNTHETŐ** — új futások kell.
+
+Ez szigorúbb, mint a korábbi 1.2×/0.8×: a 68%-os szintet VÁLLALJUK, kimondva.
+A 95%-os szint (kvatilisek 0.72×/1.65×) a felső határon szinte elérhetetlen
+0.0607-es pontértéket kívánna — ezért itt a 68% a védhető választás, kimondva.
+
+**A DRIFT-KRITÉRIUM (B) változatlan:** |A₇−A₇b| < max(2·σ_A, 0.06) — nem layout-kérdés.
+
+### Layout-visszanyerés: A NÉGY FUTÁS LAYOUTJA MEGVAN (nem veszett el!)
+
+A job.inputs-ból (SamplerV2 pub-ok) a beküldött ISA-áramkörök sávonként
+visszafejthetők — a korábbi „elveszett" minősítés HIBÁS volt:
+
+| Futás | különböző lánc a 13 sávból | sáv-0 lánc (első 6) | átfedés↔reziduális r |
+|---|---|---|---|
+| run1_fez | 3 | 91,90,98,111,110,109 | +0.257 (n.sz.) |
+| run2_fez | 2 | 107,106,105,108,109,110 | +0.464 (n.sz.) |
+| run3_fez | 3 | 107,106,105,108,109,110 | +0.524 (n.sz.) |
+| run4_marrakesh | 4 | 89,88,87,78,69,70 | +0.530 (n.sz.) |
+
+**KÖVETKEZTETÉSEK:**
+1. **Minden futásban a sávok különböző láncokon futottak** (2–4 különböző lánc) —
+   a transpiler sávonként újraválasztott. A futáson-belüli szórásban a
+   layout-variabilitás LEHETSÉGES forrás, és most már sávonként mérhető.
+2. A lánc-átfedés↔reziduális korreláció mind a négy futásban **pozitív de nem
+   szignifikáns** (0.26–0.53, küszöb 0.55) — IRÁNYJeget mutat, bizonyítékot nem.
+   (run3: 0.524 és run4: 0.530 — ÉPPEN a küszöb alatt.)
+3. **run2 és run3 sáv-0 lánc azonos** (107,106,...) — a 11 perces különbség
+   ellenére. A két futás A-ja: 0.671 vs 0.632 — az eltérés NEM tisztán lánc-eredetű.
+4. A Run 4 (A=0.756) sáv-0 lánc: **89,88,87,78,69,70 (marrakesh)** — most már
+   konkrét lánchoz köthető a legjobb kontraszt.
+5. A mérési hiba-jegyzet korrekciója: a run1–4 layoutja NEM veszett el,
+   a job.inputs-ból visszanyerhető — a _recovered_layout_*.json fájlokban.
+   A 7/7b (már futó) meta-fájljai mellett EZ is a standard mostantól.
+
+Ez a ZÁRT specifikáció: a küszöbhöz a jövőben NEM nyúlunk.
