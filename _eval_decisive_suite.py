@@ -140,5 +140,6 @@ if __name__ == "__main__":
             print(f"  phi = {e['phi']:.1f} -> <ZZ> = {e['measured_zz']:+.4f}, <Z1> = {e['measured_z1']:+.4f}, <Z0> = {e['measured_z0']:+.4f} (theory={e['theory']:+.4f})")
         print("="*70)
     else:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
         meta = json.load(open(os.path.join(base_dir, "_decisive_job_meta.json"), encoding="utf-8"))
         evaluate_job(meta["job_id"])

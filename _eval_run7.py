@@ -6,7 +6,6 @@ Kritérium (3acb8c8, 68% CI, chi2 12 dof):
   (B) drift (külön): |A7 - A7b| < max(2*sigma_A, 0.06)
 """
 import json, math, os, argparse
-from qiskit_ibm_runtime import QiskitRuntimeService
 
 def evaluate_local(result_file, shots):
     """Evaluate from local result JSON (no API needed)."""
@@ -87,6 +86,7 @@ if __name__ == "__main__":
             A7, sA7, ss7, p7, c7 = res7
             A7b, sA7b, ss7b, p7b, c7b = res7b
     else:
+        from qiskit_ibm_runtime import QiskitRuntimeService
         downloads = os.path.join(os.path.expanduser("~"), "Downloads")
         with open(os.path.join(downloads, "apikey (2).json"), encoding="utf-8") as fh:
             t1 = json.load(fh)["apikey"]

@@ -256,8 +256,8 @@ layout-eredetű** — a transpiler sávonkénti lánc-újrválasztása okozta.
 ### (B) DRIFT-KÉRDÉS: **STABIL** ✅
 
 |A₇ − A₇b| = **0.0178** < max(2·σ_A, 0.06) = 0.0600 — ugyanaz a lánc ugyanazt
-a kontrasztot adja (A = 0.740 vs 0.722), második futással, bitre-azonos
-ISA-áramkörökkel. **Nincs drift-jezés.**
+a kontrasztot adja (A = 0.740 vs 0.722), második futással, azonos ISA sablonból.
+**Nincs drift-jezés.**
 
 ### A teljes kép most már konzisztens
 
@@ -309,7 +309,7 @@ A v1 fázisban hangoztatott no-go állítás (az információ nincs a margináli
 ### 11.4 A run7b kettős Job ID-ja
 
 - `db5frpkvf2bc73cvrk4g`: a Run 7b első indítása (kézi 156-qubites építés, nem ISA-identikus, törölve/lemondva).
-- `db5g2jg4qg6s73c3e3vg`: a Run 7b második, érvényes indítása (a Run 7-tel bitre-azonos ISA transpiláció). Mindkét azonosító rögzítve.
+- `db5g2jg4qg6s73c3e3vg`: a Run 7b második, érvényes indítása (a Run 7-tel azonos ISA sablonból, paraméterezett transpiláció). Mindkét azonosító rögzítve.
 
 ---
 
