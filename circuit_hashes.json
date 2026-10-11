@@ -1,0 +1,36 @@
+{
+  "run7_job_id": "db5fnjclf4us73c3vqd0",
+  "run7b_job_id": "db5g2jg4qg6s73c3e3vg",
+  "physical_qubits": [
+    107,
+    106,
+    105,
+    108,
+    109,
+    110,
+    111,
+    98,
+    91,
+    92,
+    93,
+    94,
+    95,
+    99
+  ],
+  "template_full_sha256": "e1716ada22cb0cda1cd40c7e9f0500e6acefedd2a97dc2a8bd85e36fdefe27a3",
+  "per_band_instruction_hashes": {
+    "band_0": "ce3a631ea75efcac",
+    "band_1": "6dae3bbe32a27a13",
+    "band_2": "c89bab40f2bb1e2f",
+    "band_3": "243c8c65f29bf5fd",
+    "band_4": "38be637102aa88ab",
+    "band_5": "b95633f049e95de6",
+    "band_6": "f971829586638248",
+    "band_7": "c537221e8063ae64",
+    "band_8": "3cadafec65a335b7",
+    "band_9": "709436d2a8bbd497",
+    "band_10": "482ed10745e8e844",
+    "band_11": "f80ab8cf270e04d6",
+    "band_12": "c11708c629c7397e"
+  }
+}

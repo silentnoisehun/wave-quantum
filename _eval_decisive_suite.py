@@ -1,4 +1,4 @@
-﻿import json, math, os, statistics
+import json, math, os, statistics
 
 def evaluate_job(jid, result_file="_decisive_results.json"):
     downloads = os.path.join(os.path.expanduser("~"), "Downloads")
@@ -12,7 +12,8 @@ def evaluate_job(jid, result_file="_decisive_results.json"):
     if st != "DONE":
         return False
 
-    meta = json.load(open(r"D:\codex\wave-quantum\_decisive_job_meta.json"))
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    meta = json.load(open(os.path.join(base_dir, "_decisive_job_meta.json"), encoding="utf-8"))
     mmap = meta["metadata_map"]
     shots = meta["shots"]
     res = job.result()
@@ -120,5 +121,6 @@ def evaluate_job(jid, result_file="_decisive_results.json"):
     return True
 
 if __name__ == "__main__":
-    meta = json.load(open(r"D:\codex\wave-quantum\_decisive_job_meta.json"))
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    meta = json.load(open(os.path.join(base_dir, "_decisive_job_meta.json"), encoding="utf-8"))
     evaluate_job(meta["job_id"])

@@ -242,9 +242,7 @@ számolt várható-amplitúdó vs. mért A — ha együtt mozognak, a kalibráci
 
 - A kritériumok COMMITOLVA a wave-quantum repóba (lásd következő commit) —
   az időbélyeg a bizonyíték
-- Run 7 és 7b áramkör-hash: a 7b kézzel épült (156-qubites sablonra), ezért a
-  KÉT transpiled circuit qubit-szintű egyezését hash-ellenőrzéssel igazoljuk
-  (a SamplerV2 a beküldött ISA-áramkörök hashét a job-tag-ekben őrzi)
+- Run 7 és 7b áramkör-egyezés: az első 7b próba kézzel épült (db5frpkv...), de azt lemondtuk; a ténylegesen lefutott 7b (db5g2jg4...) a Run 7-tel azonos paraméterezett ISA sablonból származik ugyanazon a fizikai láncon (107, 106, 105...), azonos kapurenddel és fizikai leképezéssel.
 
 ---
 

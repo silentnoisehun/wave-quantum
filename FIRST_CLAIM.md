@@ -21,7 +21,7 @@ Az analitikus levezetés és a szimuláció egyértelműen bizonyítja:
 
 A munka nem új fizikát és nem új elméleti csatornát mutat be, hanem egy **kísérleti módszertani tanulságot**:
 
-1. **Egy ismert Rabi-görbe demonstrációja 14-qubites transpilált környezetben** — 3 különböző szupravezető Heron QPU-n (`ibm_fez`, `ibm_marrakesh`, `ibm_kingston`), 7 független futásban, stabil Pearson korrelációval (0.87–0.999) és kontraszttal (A ≈ 0.50–0.76).
+1. **Egy ismert Rabi-görbe demonstrációja 14-qubites transpilált környezetben** — 3 különböző szupravezető Heron QPU-n (`ibm_fez`, `ibm_marrakesh`, `ibm_kingston`), 7 futásban, stabil Pearson korrelációval (0.87–0.999) és kontraszttal (A ≈ 0.50–0.76).
 2. **Kísérlettervezési zavaró tényező kimutatása és felszámolása** — a szabad layout esetén a transpiler sávonként más-más fizikai láncot választott (2–4 lánc futásonként), ami szisztematikus szórást okozott (`σ_sys ≈ 0.15–0.19`, `χ²_red ≈ 24–100`). A rögzített layout alkalmazása ezt a szórást ~5-szörösére csökkentette (`σ_sys ≈ 0.023–0.035`, `χ²_red ≈ 2.58–4.69`).
 3. **A Falszifikációs Reflex demonstrációja** — a kutatás nyíltan dokumentálja saját tévedéseit (a marginals-hipotézis elbukása, a Z-korreláció elbukása, és végül az a felismerés, hogy a kétqubites tétel valójában egyetlen qubit Rabi-forgatása volt 14-qubites környezetbe ágyazva).
 

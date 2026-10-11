@@ -1,4 +1,4 @@
-﻿"""A DÖNTŐ KIÉRTÉKELÉS: Run 7 + 7b (rögzített layout) a ZÁRT kritériumok szerint.
+"""A DÖNTŐ KIÉRTÉKELÉS: Run 7 + 7b (rögzített layout) a ZÁRT kritériumok szerint.
 Kritérium (3acb8c8, 68% CI, chi2 12 dof):
   (A) ELFOGADJUK layout-magyarázatot ha 1.36*sigma_sys < 0.10 mindkét futásnál
       ELUTASÍTJUK ha 0.72*sigma_sys > 0.15 mindkettőnél
@@ -43,14 +43,16 @@ def evaluate(svc, jid, name, shots, backend):
     sig_A = math.sqrt(1.0/shots / sum(t*t for t in theo))
     print(f"--- {name} ({backend}, {shots} shots) ---")
     print(f"  Pearson: {pearson:.4f} | A: {A:.4f} ± {sig_A:.4f} | chi2_red: {chi2_red:.2f} | sigma_sys: {sigma_sys:.4f}")
-    with open(rf"D:\codex\wave-quantum\result_{name}.json", "w", encoding="utf-8") as f:
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    with open(os.path.join(base_dir, f"result_{name}.json"), "w", encoding="utf-8") as f:
         json.dump({"job_id": jid, "backend": backend, "shots": shots, "pearson": pearson,
                    "A_fit": A, "A_err": sig_A, "chi2_red": chi2_red, "sigma_sys_binomial": sigma_sys,
                    "rows": rows}, f, indent=2)
     return A, sig_A, sigma_sys, pearson, chi2_red
 
-run7  = json.load(open(r"D:\codex\wave-quantum\_run7_meta.json"))
-run7b = json.load(open(r"D:\codex\wave-quantum\_run7b_meta.json"))
+base_dir = os.path.dirname(os.path.abspath(__file__))
+run7  = json.load(open(os.path.join(base_dir, "_run7_meta.json"), encoding="utf-8"))
+run7b = json.load(open(os.path.join(base_dir, "_run7b_meta.json"), encoding="utf-8"))
 A7, sA7, ss7, p7, c7  = evaluate(s1, run7["job_id"],  "run7_fixed_layout",  2048, "ibm_fez")
 A7b, sA7b, ss7b, p7b, c7b = evaluate(s2, run7b["job_id"], "run7b_fixed_layout", 2048, "ibm_fez")
 

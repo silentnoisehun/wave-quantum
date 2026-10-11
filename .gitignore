@@ -13,6 +13,8 @@ __pycache__/
 # Scratch files
 _all_status.py
 _check_*.py
+_compute_hashes.py
+_continuous_dual_poller.py
 _key_quota.py
 _multi_run_ids.json
 _recover_layouts.py

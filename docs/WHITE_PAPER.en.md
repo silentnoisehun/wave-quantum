@@ -141,7 +141,7 @@ All experiments were conducted on IBM Quantum 156-qubit Heron r2 superconducting
 | **7** | `ibm_fez` | 2048 | **Fixed** (`q₀=107, q₁=106...`) | **0.9973** | **0.7396** | **4.69** | **0.0348** |
 | **7b** | `ibm_fez` | 2048 | **Fixed** (identical to 7) | **0.9989** | **0.7218** | **2.58** | **0.0231** |
 
-*Note on Run 7b Execution:* Runs 7 and 7b were consecutive executions on the identical physical chain. Run 7b was initially dispatched under Job ID `db5frpkvf2bc73cvrk4g` (manual 156Q non-ISA template, cancelled), and successfully executed under Job ID `db5g2jg4qg6s73c3e3vg` (bit-identical parameterised ISA circuit to Run 7).
+*Note on Run 7b Execution:* Runs 7 and 7b were consecutive executions on the identical physical chain. Run 7b was initially dispatched under Job ID `db5frpkvf2bc73cvrk4g` (manual 156Q non-ISA template, cancelled), and successfully executed under Job ID `db5g2jg4qg6s73c3e3vg` (bound from the identical parameterised ISA template as Run 7; full instruction SHA256 hash `e1716ada22cb0cda1cd40c7e9f0500e6acefedd2a97dc2a8bd85e36fdefe27a3` recorded in `circuit_hashes.json`).
 
 ---
 
@@ -190,7 +190,7 @@ To definitively test the analytical reduction, we executed a 49-circuit benchmar
 2. **Monotonic contrast decay with spectator scale:** Contrast decays monotonically as spectator qubits are added:
    $$ A = 0.9834 \text{ (1Q)} \longrightarrow 0.9583 \text{ (2Q)} \longrightarrow 0.7346 \text{ (14Q)} $$
    The 12 spectator qubits and their 24 entangling gates do not alter the functional form ($r > 0.999$ in all cases), but degrade the contrast by ~24% due to gate error accumulation and spectator decoherence.
-3. **The 0.10 Gap in 14-Qubit Parity:** In the 14-qubit circuit, the partner marginal contrast is $A = 0.8386$, whereas the two-qubit parity contrast is $A = 0.7346$, a gap of $\approx 0.10$. Under ideal unitary evolution $\langle Z_0 Z_1 \rangle = \langle Z_0 \rangle \langle Z_1 \rangle = (+1) \langle Z_1 \rangle$. On hardware, qubit $q_0$ serves as the target of 13 entangling CX gates and undergoes readout relaxation, lowering its expectation value to $\langle Z_0 \rangle \approx 0.88$. Since $0.88 \times 0.8386 \approx 0.738$, this single-qubit fidelity degradation on the readout qubit accounts entirely for the observed 0.10 gap.
+3. **The 0.10 Gap in 14-Qubit Parity:** In the 14-qubit circuit, the partner marginal contrast is $A = 0.8386$, whereas the two-qubit parity contrast is $A = 0.7346$, a gap of $\approx 0.10$. Under ideal unitary evolution $\langle Z_0 Z_1 \rangle = \langle Z_0 \rangle \langle Z_1 \rangle = (+1) \langle Z_1 \rangle$. On hardware, qubit $q_0$ serves as the target of 13 entangling CX gates and undergoes readout relaxation, lowering its expectation value to $\langle Z_0 \rangle \approx 0.82–0.88$ (mean $\approx 0.86$). Evaluating $0.86 \times 0.8386 \approx 0.721$ accounts for the vast majority ($\approx 85\%$) of the observed $0.10$ gap, with the remainder attributable to spectator crosstalk and correlated readout noise.
 
 ### 6.2 Parameter Decoupling (A-Sweep and φ-Sweep)
 
