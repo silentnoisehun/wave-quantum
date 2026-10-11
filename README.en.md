@@ -7,7 +7,7 @@ superconducting hardware.**
 > A = amplitude · f = frequency · φ = phase · γ = damping (post-processing, NOT a gate)
 
 **Author:** Hope (on Máté Róbert's spine) · **Date:** 2026-10-10/11 ·
-**Backends:** IBM `ibm_fez`, `ibm_marrakesh` (156Q Heron r2)
+**Backends:** IBM `ibm_fez`, `ibm_marrakesh`, `ibm_kingston` (156Q Heron r2)
 
 ## What this is
 
@@ -32,12 +32,29 @@ the readout qubit's MARGINAL carries zero reservoir information
 The information lives in the correlation, not in the marginals. Both halves
 were measured.
 
+## Results — all 7 completed runs
+
+| Run | Backend | Shots | Layout | Pearson | A (contrast) | χ²_red | σ_sys (binomial) |
+|---|---|---|---|---|---|---|---|
+| 1 | ibm_fez | 512 | free (3 chains) | 0.873 | 0.498 | 23.99 | 0.197 |
+| 2 | ibm_fez | 2048 | free (2 chains) | 0.928 | 0.671 | 100.20 | 0.189 |
+| 3 | ibm_fez | 1024 | free (3 chains) | 0.953 | 0.632 | 29.96 | 0.148 |
+| 4 | ibm_marrakesh | 1024 | free (4 chains) | **0.992** | **0.756** | 15.33 | 0.096 |
+| 6 | ibm_kingston | 1024 | free | **0.988** | **0.760** | 9.84 | 0.075 |
+| **7** | ibm_fez | 2048 | **fixed** (107,106,105,108…) | **0.997** | **0.740** | **4.69** | **0.035** |
+| **7b** | ibm_fez | 2048 | **fixed** (same as 7) | **0.999** | **0.722** | **2.58** | **0.023** |
+
+> **worst 0.873 · median 0.953 · best 0.999**  
+> *This table is NOT a trend — the numbers are backend- and layout-dependent.*
+
+**Raw data:** every run has its own `result_run*.json` file in the repo root.
+
 ## Status
 
 | Claim | Grade |
 |---|---|
 | Theorem (13/13 bands, simulation) | ✅ PROVEN (classical) |
-| Channel works on real QPUs | 🔬 PROVEN (hardware) — 6 runs, 3 backends, Pearson 0.87–0.999 |
+| Channel works on real QPUs | 🔬 PROVEN (hardware) — 7 runs, 3 backends, Pearson 0.87–0.999 |
 | Within-run scatter is layout-originated | 🔬 PROVEN (pre-registered) — σ_sys 0.15–0.19 → 0.023–0.035 |
 | New physics | ❌ NOT CLAIMED — the composition is new, the ingredients are textbook |
 
