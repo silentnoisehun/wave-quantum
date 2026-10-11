@@ -1,0 +1,23 @@
+{
+  "job_id": "db5g2jg4qg6s73c3e3vg",
+  "physical_qubits": [
+    107,
+    106,
+    105,
+    108,
+    109,
+    110,
+    111,
+    98,
+    91,
+    92,
+    93,
+    94,
+    95,
+    99
+  ],
+  "depth": 75,
+  "cz": 28,
+  "shots": 2048,
+  "method": "ISA_identical_to_run7"
+}

@@ -1,0 +1,23 @@
+{
+  "job_id": "db5fnjclf4us73c3vqd0",
+  "physical_qubits": [
+    107,
+    106,
+    105,
+    108,
+    109,
+    110,
+    111,
+    98,
+    91,
+    92,
+    93,
+    94,
+    95,
+    99
+  ],
+  "depth": 75,
+  "cz": 28,
+  "shots": 2048,
+  "method": "parameterized_single_transpile"
+}

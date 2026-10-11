@@ -1,0 +1,35 @@
+{
+  "run1_fez_512": {
+    "shots": 512,
+    "A_fit": 0.4978,
+    "A_err": 0.0173,
+    "chi2_red": 23.99,
+    "sigma_sys_1_over_sqrt": 0.212,
+    "sigma_sys_binomial": 0.197,
+    "variance_fraction_systematic": 0.952,
+    "z_vs_null": 28.7,
+    "p_null": 2.3e-181
+  },
+  "run2_fez_2048": {
+    "shots": 2048,
+    "A_fit": 0.6712,
+    "A_err": 0.0087,
+    "chi2_red": 100.2,
+    "sigma_sys_1_over_sqrt": 0.22,
+    "sigma_sys_binomial": 0.189,
+    "variance_fraction_systematic": 0.987,
+    "z_vs_null": 77.4,
+    "p_null": 0.0
+  },
+  "run3_fez_1024": {
+    "shots": 1024,
+    "A_fit": 0.6319,
+    "A_err": 0.0123,
+    "chi2_red": 29.96,
+    "sigma_sys_1_over_sqrt": 0.168,
+    "sigma_sys_binomial": 0.148,
+    "variance_fraction_systematic": 0.957,
+    "z_vs_null": 51.5,
+    "p_null": 0.0
+  }
+}
