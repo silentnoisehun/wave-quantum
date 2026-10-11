@@ -12,8 +12,7 @@ __pycache__/
 
 # Scratch files
 _all_status.py
-_check_hardware.py
-_check_queues.py
+_check_*.py
 _key_quota.py
 _multi_run_ids.json
 _recover_layouts.py

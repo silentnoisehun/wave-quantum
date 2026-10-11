@@ -96,16 +96,22 @@ python _referee_stats.py
 
 Követelmények: `qiskit`, `qiskit-ibm-runtime` ≥ 0.50, IBM Quantum token.
 
-## Jövőbeli mérés (a döntő teszt)
+## A döntő skálázási kísérlet (1Q vs 2Q vs 14Q és A/φ szétcsatolás)
 
-Egy jobban, ugyanazon a fizikai láncon:
-- 1-qubit változat (csak partner + RX + H + measure)
-- 2-qubit változat (partner + readout + CX + H⊗H)  
-- 14-qubit változat (jelenlegi build_v3)
-- A-sweep 0.1–0.9, φ-sweep 0–2π
+Lefuttatva egyetlen jobban `ibm_marrakesh` hardveren (Job ID: `db5pe8clf4us73c4cfag`, 2048 shots):
 
-Ha mindhárom ugyanazt a cos(2πk/13)-ot adja, a kontraszt a mérettel csökken,
-és A/φ nincs hatása → a white paper ezt nyíltan közli.
+| Architektúra | Megfigyelhető | Kontraszt A | Pearson r | χ²_red | σ_sys |
+|---|---|---|---|---|---|
+| **1-qubit** (partner q88) | `⟨Z₁⟩` | **0.9834** | **0.9996** | 2.23 | 0.0104 |
+| **2-qubit** (q89, q88) | `⟨Z₀ · Z₁⟩` | **0.9583** | **0.9998** | **0.82** | **0.0000** |
+| **2-qubit** (partner marginal) | `⟨Z₁⟩` | **0.9599** | **0.9998** | **0.87** | **0.0000** |
+| **14-qubit** (teljes lánc) | `⟨Z₀ · Z₁⟩` | **0.7346** | **0.9993** | 4.09 | 0.0320 |
+| **14-qubit** (partner marginal)| `⟨Z₁⟩` | **0.8386** | **0.9995** | 6.18 | 0.0371 |
+
+**Főbb megfigyelések:**
+1. **Marginalis == korreláció:** A 2-qubites áramkörben a korreláció `⟨ZZ⟩` (0.9583) és a partner marginálisa `⟨Z₁⟩` (0.9599) 0.0016-on belül megegyezik, mindkettő szub-egységnyi $\chi^2_{\text{red}}$-del (0.82 < 1.0).
+2. **Monoton kontraszt-csökkenés a mérettel:** $0.9834 \text{ (1Q)} \to 0.9583 \text{ (2Q)} \to 0.7346 \text{ (14Q)}$. A 12 spektátor qubit kizárólag kapuhibát és dekoherenciát ad hozzá.
+3. **A és φ függetlenség:** $A \in [0.1, 0.9]$ között a mért `⟨ZZ⟩` konstans $0.415 \pm 0.029$ marad (elmélet: 0.5681), miközben a readout marginal $0.54 \to 0.88 \to 0.54$ között változik. A kétqubites paritás teljesen független $A$-tól és $\varphi$-től!
 
 ## Hivatkozás
 

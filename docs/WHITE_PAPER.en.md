@@ -170,7 +170,41 @@ Both bounds lie strictly below the pre-registered 0.10 threshold.
 
 ---
 
-## 6. Documented Errors and Methodological Lessons
+## 6. The Decisive Scaling Experiment (IBM Marrakesh, 2048 shots)
+
+To definitively test the analytical reduction, we executed a 49-circuit benchmark in a single job on `ibm_marrakesh` (Job ID: `db5pe8clf4us73c4cfag`, 2048 shots, physical chain `[89, 88, 87, 78, 69, 70, 71, 58, 51, 52, 53, 54, 55, 59]`, readout `q₀=89`, partner `q₁=88`):
+
+### 6.1 Contrast Scaling (1Q vs 2Q vs 14Q)
+
+| Architecture | Measured Observable | Fitted Contrast A | Pearson r | χ²_red | σ_sys |
+|---|---|---|---|---|---|
+| **1-Qubit** (partner `q88` only) | `⟨Z₁⟩` | **0.9834** | **0.9996** | 2.23 | 0.0104 |
+| **2-Qubit** (`q89, q88`) | `⟨Z₀ · Z₁⟩` | **0.9583** | **0.9998** | **0.82** | **0.0000** |
+| **2-Qubit** (`q89, q88`) | `⟨Z₁⟩` (partner marginal) | **0.9599** | **0.9998** | **0.87** | **0.0000** |
+| **14-Qubit** (full chain) | `⟨Z₀ · Z₁⟩` | **0.7346** | **0.9993** | 4.09 | 0.0320 |
+| **14-Qubit** (full chain) | `⟨Z₁⟩` (partner marginal) | **0.8386** | **0.9995** | 6.18 | 0.0371 |
+
+**Key Findings:**
+1. **Marginal equals correlation:** In the 2-qubit circuit, the parity correlation `⟨ZZ⟩` (0.9583) and the partner marginal `⟨Z₁⟩` (0.9599) agree to within 0.0016, and both achieve sub-unity reduced chi-square (`χ²_red = 0.82 < 1.0`), showing that the two-qubit correlation is purely the partner's Rabi oscillation.
+2. **Monotonic contrast decay with spectator scale:** Contrast decays monotonically as spectator qubits are added:
+   $$ A = 0.9834 \text{ (1Q)} \longrightarrow 0.9583 \text{ (2Q)} \longrightarrow 0.7346 \text{ (14Q)} $$
+   The 12 spectator qubits and their 24 entangling gates do not alter the functional form ($r > 0.999$ in all cases), but degrade the contrast by ~24% due to gate error accumulation and spectator decoherence.
+
+### 6.2 Parameter Decoupling (A-Sweep and φ-Sweep)
+
+Using the 14-qubit circuit at fixed frequency band $k=2$ (theoretical value $\cos(2\pi \cdot 2/13) \approx 0.5681$):
+- **A-Sweep ($A \in \{0.1, 0.3, 0.5, 0.7, 0.9\}$, $\varphi=0.0$):**
+  Measured `⟨ZZ⟩` remains completely flat:
+  `A=0.1: +0.4531` · `A=0.3: +0.4062` · `A=0.5: +0.4082` · `A=0.7: +0.3770` · `A=0.9: +0.4336` (mean $0.415 \pm 0.029$).
+  Meanwhile, the readout marginal `⟨Z₀⟩` tracks the parameter preparation: $0.5400 \to 0.8770 \to 0.5361$.
+- **φ-Sweep ($\varphi \in \{0.0, 0.5, 1.0, 1.5, 2.0\}$, $A=0.5$):**
+  Measured `⟨ZZ⟩` remains positive and flat ($0.476 \pm 0.059$), while the partner marginal `⟨Z₁⟩` swings from $+0.4541$ to $-0.5684$ as the readout state rotates away from $|+\rangle$.
+
+This experimentally demonstrates that the two-qubit parity `⟨Z₀Z₁⟩` is physically decoupled from the amplitude and phase parameterization of the wave packet, settling the question definitively.
+
+---
+
+## 7. Documented Errors and Methodological Lessons
 
 1. **Analytical identification failure:** Believing `⟨Z₀Z₁⟩ = cos(θ)` was an emergent multi-qubit entangled property rather than a trivial single-qubit Rabi pullback.
 2. **False marginal no-go:** Claiming information was absent from marginals when the partner marginal `⟨Z₁⟩` identically matched the correlation.
@@ -182,7 +216,7 @@ Both bounds lie strictly below the pre-registered 0.10 threshold.
 
 ---
 
-## 7. Reproduction
+## 8. Reproduction
 
 ### 7.1 Pure Analytical / Simulation Sweep (Zero Quota)
 ```bash
