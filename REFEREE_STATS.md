@@ -245,3 +245,34 @@ számolt várható-amplitúdó vs. mért A — ha együtt mozognak, a kalibráci
 - Run 7 és 7b áramkör-hash: a 7b kézzel épült (156-qubites sablonra), ezért a
   KÉT transpiled circuit qubit-szintű egyezését hash-ellenőrzéssel igazoljuk
   (a SamplerV2 a beküldött ISA-áramkörök hashét a job-tag-ekben őrzi)
+
+---
+
+## MÓDOSÍTÁS A KÜSZÖBHÖZ (2026-10-11 05:4x — Run 7/7b EREDMÉNY ELŐTT, mindkettő még QUEUED)
+
+### A σ_sys-küszöb konfidencia-intervallumra módosítva
+
+13 pontból a σ_sys-becslés bizonytalansága kb. ±20% (chi²-eloszlás, 12 dof).
+Ezért a pontérték-alapú küszöb NEM döntésképes a 0.08–0.12 sávban.
+
+**Módosított kritérium (A): futáson-belüli szórás layout-eredete**
+- A layout-magyarázatot az az **egymás-mellé-állítás** dönti:
+  - **ELFOGADJUK**, ha a 7/7b σ_sys **konfidencia-intervallumának felső határa** (kb. 1.2×pontérték) **< 0.10**;
+  - **ELUTASÍTJUK**, ha a **konfidencia-intervallum alsó határa** (kb. 0.8×pontérték) **> 0.15**;
+  - a kettő között **NEM DÖNTHETŐ** — ekkor új futások (több shots) kell a szűkítéshez.
+- Ez módosítás: az eredeti (a160bc3) pontérték-küszöböt váltja, az eredmények
+  láthatása ELŐTT — a Run 7/7b még QUEUED.
+
+### A Run 4 narratíva-korrekciók (beépítve a szövegbe)
+
+1. A „Pearson 0.87→0.99 sorozat" félrevezető: **nincs időbeli trend**, a
+   négy futás Pearsonja **0.87–0.99, backendtől függően**. A leképezés nem
+   változott; a hardver minősége más.
+2. A Run 4 kontrasztja (A=0.756) **NEM „konstisztens a layout-hipotézissel"**:
+   más chipeken MINDEN változó egyszerre mozdul el (kalibráció, lánc, readout),
+   így bármely hardver-minőség-hipotézissel kompatibilis. NEM dönt el semmit.
+3. A 0.10-es küszöb **CSAK a 7/7b-re vonatkozik** — a Run 4-re alkalmazni
+   utólagos olvasás lenne. (A Run 4 σ_sys=0.096 értéke egyszerűen rögzítésre kerül.)
+4. **Run 4 layout NEM volt mentve** (a multi-run rendszer 13 külön transpile-l ment,
+   mint run1-3) — a 0.756-os kontraszt egyik konkrét lánccal sem hozható kapcsolatba.
+   Ez a negyedik elveszett-layout futás; a hiány a jövőbeli futásoknál javítva.
