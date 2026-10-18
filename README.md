@@ -90,6 +90,7 @@ Lefuttatva egyetlen jobban az `ibm_marrakesh` processzoron (Job ID: `db5pe8clf4u
 | v3 (első tipp) | $\langle ZZ \rangle = \cos(\pi k/N)$ | ✅ Szimulációban cáfolva: 12/13 sáv elbukott. |
 | v3 | $\langle ZZ \rangle = \cos(2\pi k/N)$ | ✅ Analitikusan és 🔬 hardveren igazolva (Rabi-görbe). |
 | v3 (értelmezés) | "Új kétqubites hullám-korrelációs csatorna" | ⚠️ Analitikusan cáfolva: az operátor $\langle Z_1 \rangle$-re redukálódik. |
+| v3 × QDS-drift | "A ⟨ZZ⟩ Rabi-görbe instabilitása a qubit-91 phasor-drift miatt" | ❌🔴 Cross-repo cáfolat: 5 futás, r = 0.9994 ± 0.0001 (rel. szórás 0.013% vs QDS 43.7%). A drift **qubit-91-specifikus**, a ⟨ZZ⟩ csatorna (q₀/q₁) **nem érintett**. |
 
 ---
 
