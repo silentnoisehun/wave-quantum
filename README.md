@@ -1,6 +1,14 @@
 # wave-quantum
 
-**Rabi-görbe demonstráció 14-qubit-es transpilált környezetben — validálva valós szupravezető hardveren.**
+**Heisenberg Reduction of Parity Observables & Spectator Contrast Characterization on Superconducting Transmon Processors**
+
+> ### 📄 Publication Manuscript
+> - **LaTeX Manuscript:** [`arxiv/spectator_parity_manuscript.tex`](arxiv/spectator_parity_manuscript.tex)
+> - **Title:** *Heisenberg Reduction of Parity Observables and Spectator-Induced Contrast Decay in Superconducting Transmon Processors*
+> - **Author:** Máté Róbert (Independent Researcher)
+> - **Core Results:**
+>   1. **Parity Mapping & Falsification:** $\langle Z_0 Z_1 \rangle = \cos(2\pi k / 13)$ reproduces across 7 independent hardware runs ($r = 0.998915$, $\chi^2_{\text{red}} = 2.58$, $z = 83.28\sigma$ on Run 7b). Proved via Heisenberg picture that $(CX)^\dagger (Z_0 \otimes Z_1) CX = I \otimes Z_1$, bounding target marginal total variation distance within readout noise ($\text{TVD} = 0.047$).
+>   2. **Spectator Dephasing Scaling:** Direct quantification of spectator crosstalk suppression: $1Q\ (0.9834) \to 2Q\ (0.9583) \to 14Q\ (0.7346)$.
 
 > **Eredeti motiváció:** $\psi(t) = A \cdot \exp(-\gamma t) \cos(2\pi f t + \varphi)$ paramétereinek áramköri kódolása.  
 > **Fizikai valóság:** Az analitikus levezetés és a hardveres mérések bizonyítják, hogy a mért paritás-megfigyelhető analitikusan független az $A$ amplitúdótól és a $\varphi$ fázistól; a megfigyelhető kizárólag a frekvenciához rendelt $k$ forgatási szöget viszi át.

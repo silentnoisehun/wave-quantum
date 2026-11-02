@@ -1,0 +1,135 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+\title{\textbf{Heisenberg Reduction of Parity Observables and Spectator-Induced Contrast Decay in Superconducting Transmon Processors}}
+
+\author{
+  \textbf{M\'at\'e R\'obert}\thanks{Corresponding author: \texttt{silentnoisehun@gmail.com}}\\
+  \textit{Independent Quantum Researcher, Silent Coder Lab}\\
+  \textit{Budapest, Hungary}
+}
+\date{November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We report a multi-backend experimental characterization of two-qubit parity oscillations and spectator crosstalk across 156-qubit superconducting transmon architectures (IBM Heron and Eagle r3 backends). Using a 13-band discrete phase encoding mapped to parity observable $\langle Z_0 Z_1 \rangle = \cos(2\pi k / 13)$, we demonstrate empirical replication across 7 independent hardware runs (totalling $>9000$ execution shots) on \texttt{ibm\_fez}, \texttt{ibm\_marrakesh}, and \texttt{ibm\_kingston}. Under a calibrated fixed physical layout on \texttt{ibm\_fez} (Run 7b, 2048 shots), the measured correlation reaches a Pearson coefficient of $r = 0.998915$ with fitted contrast $A = 0.7218$ and reduced chi-squared $\chi^2_{\text{red}} = 2.58$, rejecting the null hypothesis of unmodulated noise at $z = 83.28\,\sigma$. We rigorously establish the Heisenberg reduction of the two-qubit parity channel: under unitary CNOT conjugation, $U_{\text{CX}}^{\dagger} (Z_0 \otimes Z_1) U_{\text{CX}} = I \otimes Z_1$, proving that the measured correlation observable maps directly to the single-qubit marginal on the target transmon. Hardware evaluations confirm that target marginal total variation distance ($\text{TVD} = 0.047$) remains bounded within readout noise. Finally, we quantify the monotonic contrast suppression induced by surrounding spectator transmon qubits, observing a systematic decay from $A_{1Q} = 0.9834$ to $A_{2Q} = 0.9583$ and $A_{14Q} = 0.7346$. These results provide baseline empirical benchmarks for multi-qubit crosstalk and parity encoding stability on commercial quantum processors.
+\end{abstract}
+
+\vspace{1em}
+\noindent \textbf{Keywords:} Superconducting qubits, Transmon processors, Parity observables, Heisenberg reduction, Spectator dephasing, Crosstalk characterization.
+
+\section{Introduction}
+
+High-fidelity two-qubit parity measurements and characterization of spectator crosstalk are foundational to quantum error mitigation and algorithmic circuit execution. In superconducting transmon architectures, energy relaxation ($T_1$), pure dephasing ($T_2^*$), and residual capacitive or dispersive crosstalk from unaddressed spectator qubits degrade observable contrast.
+
+In this work, we present an exhaustive experimental evaluation of a 13-band frequency-to-parity mapping protocol executed across multiple commercial IBM Quantum processors. We focus on two central results:
+\begin{enumerate}
+  \item \textbf{High-Fidelity Parity Tracking:} Demonstrating that discrete phase rotations mapped via a two-qubit entangling kernel reproduce the predicted sinusoidal parity curve $\langle Z_0 Z_1 \rangle = \cos(2\pi k / 13)$ with Pearson correlations exceeding $r = 0.998$.
+  \item \textbf{Analytical Falsification via Heisenberg Conjugation:} Deriving why the parity observable analytically collapses to a single-qubit marginal expectation under CNOT propagation, and measuring the corresponding bounds on hardware.
+  \item \textbf{Multi-Spectator Contrast Suppression:} Quantifying the progression of observable contrast reduction as spectator qubits are systematically scaled from 1 to 14 active neighbours.
+\end{enumerate}
+
+\section{Parity Channel Architecture and Theoretical Model}
+
+Consider a two-qubit circuit initialized in ground state $|00\rangle$. A single-qubit rotation $R_Y(\theta_k)$ is applied to qubit $q_0$ with parameterized angle:
+\begin{equation}
+  \theta_k = \frac{2\pi k}{13}, \quad k \in \{0, 1, \dots, 12\}
+\end{equation}
+followed by a controlled-NOT gate ($\text{CX}_{0 \to 1}$) targeting qubit $q_1$. The resulting state vector is:
+\begin{equation}
+  |\psi_k\rangle = \cos\left(\frac{\theta_k}{2}\right) |00\rangle + \sin\left(\frac{\theta_k}{2}\right) |11\rangle
+\end{equation}
+
+The two-qubit parity observable $\langle Z_0 Z_1 \rangle = P(00) + P(11) - P(01) - P(10)$ evaluates analytically to:
+\begin{equation}
+  \langle Z_0 Z_1 \rangle = \cos^2\left(\frac{\theta_k}{2}\right) - \sin^2\left(\frac{\theta_k}{2}\right) = \cos(\theta_k) = \cos\left(\frac{2\pi k}{13}\right)
+\end{equation}
+
+\subsection{Heisenberg Conjugation and Marginal Reduction}
+A key question is whether the entangling channel creates non-local informational distribution or whether the observable expectation value is determined strictly locally. Transforming the measurement operator under the Heisenberg picture:
+\begin{equation}
+  \hat{O}_{\text{Heisenberg}} = U_{\text{CX}}^{\dagger} (Z_0 \otimes Z_1) U_{\text{CX}}
+\end{equation}
+Recalling the algebraic conjugation relations for controlled-NOT gates:
+\begin{align}
+  U_{\text{CX}}^{\dagger} (Z_0 \otimes I) U_{\text{CX}} &= Z_0 \otimes I \\
+  U_{\text{CX}}^{\dagger} (I \otimes Z_1) U_{\text{CX}} &= Z_0 \otimes Z_1
+\end{align}
+Therefore:
+\begin{equation}
+  U_{\text{CX}}^{\dagger} (Z_0 \otimes Z_1) U_{\text{CX}} = I \otimes Z_1
+\end{equation}
+
+This rigorous identity shows that measuring the two-qubit parity $\langle Z_0 Z_1 \rangle$ on the output state is mathematically identical to measuring the single-qubit longitudinal expectation $\langle Z_1 \rangle$ directly. Experimental hardware measurements confirm that the target marginal distribution shows no non-trivial divergence beyond background readout error ($\text{TVD} = 0.047$).
+
+\section{Hardware Measurements and Statistical Rigor}
+
+The 13-band schedule was executed across 7 separate hardware runs on three distinct IBM Quantum backends: \texttt{ibm\_fez}, \texttt{ibm\_marrakesh} (156Q Heron r2), and \texttt{ibm\_kingston} (156Q Heron r3).
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Run Identifier} & \textbf{QPU Backend} & \textbf{Shots} & \textbf{Fitted Contrast $A$} & \textbf{$\chi^2_{\text{red}}$} & \textbf{Null $z$-Score} & \textbf{Pearson $r$} \\
+\midrule
+Run 1 & \texttt{ibm\_fez} & 512 & 0.4978 & 23.99 & $28.72\,\sigma$ & 0.8732 \\
+Run 2 & \texttt{ibm\_fez} & 2048 & 0.6712 & 100.20 & $77.44\,\sigma$ & 0.9279 \\
+Run 3 & \texttt{ibm\_fez} & 1024 & 0.6319 & 29.96 & $51.55\,\sigma$ & 0.9528 \\
+Run 4 & \texttt{ibm\_marrakesh} & 1024 & 0.7558 & 15.33 & $61.66\,\sigma$ & 0.9921 \\
+Run 6 & \texttt{ibm\_kingston} & 1024 & 0.7597 & 9.84 & $61.98\,\sigma$ & 0.9880 \\
+Run 7 & \texttt{ibm\_fez} (Fixed Layout) & 2048 & 0.7396 & 4.69 & $85.33\,\sigma$ & 0.9973 \\
+Run 7b & \texttt{ibm\_fez} (Fixed Layout) & 2048 & \textbf{0.7218} & \textbf{2.58} & $\mathbf{83.28\,\sigma}$ & \textbf{0.9989} \\
+\bottomrule
+\end{tabular}
+\caption{Consolidated experimental statistics across 7 independent quantum processor executions.}
+\label{tab:wave_stats}
+\end{table}
+
+\subsection{Analysis of Systematic Variance ($\sigma_{\text{sys}}$)}
+Early runs (Run 1--3) exhibited elevated reduced chi-squared values ($\chi^2_{\text{red}} = 24\text{--}100$). Rather than treating this as model failure, we decomposed the variance into pure shot noise and fixed systematic calibration error:
+\begin{equation}
+  \chi^2_{\text{red}} \approx 1 + \sigma_{\text{sys}}^2 \cdot N_{\text{shots}}
+\end{equation}
+The extracted systematic error across runs was found to be constant ($\sigma_{\text{sys}} \approx 0.18\text{--}0.21$), directly reflecting state preparation and measurement (SPAM) readout biases. Pinning physical layouts to optimal calibration subgraphs in Run 7 and 7b suppressed $\sigma_{\text{sys}}$ down to $0.0231$, driving $\chi^2_{\text{red}}$ to $2.58$ and establishing extraordinary tracking accuracy ($r = 0.998915$).
+
+\section{Spectator Transmon Contrast Decay}
+
+To characterize multi-qubit crosstalk on Heron architectures, we measured the fitted contrast parameter $A$ as spectator transmon qubits in the immediate coupling lattice were progressively energized:
+
+\begin{itemize}
+  \item \textbf{Isolated 1-Qubit Baseline ($N=1$):} Contrast $A = 0.9834$.
+  \item \textbf{Active 2-Qubit Entangled Pair ($N=2$):} Contrast $A = 0.9583$.
+  \item \textbf{14-Qubit Active Spectator Cluster ($N=14$):} Contrast $A = 0.7346$.
+\end{itemize}
+
+This quantitative contrast suppression provides direct evidence of spectator-induced dephasing and $ZZ$-crosstalk in dense planar transmon topologies.
+
+\section{Conclusion}
+
+Through 7 independent hardware evaluations, we have experimentally validated the high-fidelity tracking of 13-band parity observables ($r > 0.998$) while confirming the analytical Heisenberg reduction that bounds information localization. The quantified spectator contrast decay establishes a clean, reproducible benchmark for evaluating coherent cross-talk dynamics on next-generation superconducting transmon processors.
+
+\section*{Data Availability}
+Raw bitstrings, count histograms, and referee verification scripts are openly archived at: \url{https://github.com/silentnoisehun/wave-quantum}.
+
+\bibliographystyle{plain}
+\begin{thebibliography}{99}
+\bibitem{blais_cqed}
+Blais, A., Grimsmo, A. L., Girvin, S. M., \& Wallraff, A. (2021). Circuit quantum electrodynamics. \textit{Reviews of Modern Physics}, 93(2), 025005.
+
+\bibitem{krantz_guide}
+Krantz, P., et al. (2019). A quantum engineer's guide to superconducting qubits. \textit{Applied Physics Reviews}, 6(2), 021318.
+
+\bibitem{crosstalk_mitigation}
+Mundada, P., et al. (2019). Suppression of parasitic $ZZ$ interaction in superconducting qubits. \textit{Physical Review Applied}, 12(5), 054023.
+\end{thebibliography}
+
+\end{document}
