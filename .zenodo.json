@@ -1,0 +1,24 @@
+{
+  "title": "Heisenberg Reduction of Parity Observables and Spectator-Induced Contrast Decay in Superconducting Transmon Processors",
+  "description": "Multi-backend experimental characterization of two-qubit parity oscillations and spectator crosstalk across 156-qubit superconducting transmon architectures (IBM Heron and Eagle r3 backends). Establishes the Heisenberg reduction of the parity channel and quantifies spectator-induced contrast decay.",
+  "keywords": [
+    "quantum computing",
+    "transmons",
+    "parity observables",
+    "Heisenberg reduction",
+    "spectator crosstalk",
+    "IBM Heron"
+  ],
+  "license": "MIT",
+  "version": "1.0.1",
+  "publication_date": "2026-11-02",
+  "creators": [
+    {
+      "name": "Róbert, Máté",
+      "affiliation": "Independent Quantum Researcher, Silent Coder Lab",
+      "orcid": "0009-0003-3986-6039"
+    }
+  ],
+  "access_right": "open",
+  "upload_type": "software"
+}
