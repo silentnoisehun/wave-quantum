@@ -123,3 +123,12 @@ Ha használod a munkát vagy az adatokat, idézd az összetevőket:
 - Paritás-oszcillációk mérése: Sackett et al., *Nature* 404, 256–259 (2000).
 - Kvantum forgatási szögkódolás Fourier-struktúrája: Schuld, Sweke, Meyer, *Phys. Rev. A* 103, 032430 (2021) [arXiv:2008.08605].
 - Kvantum rezervoár architektúrák szupravezető hardveren: Suzuki et al., *Sci. Rep.* 12, 1353 (2022) [arXiv:2107.05808]; Chen, Nurdin, Yamamoto, *Phys. Rev. Applied* 14, 024065 (2020) [arXiv:2001.09498].
+
+---
+
+## 🤝 Contact & Research Collaboration
+
+- **Author:** Máté Róbert
+- **Email:** `materobi86@gmail.com`
+- **GitHub:** [`silentnoisehun`](https://github.com/silentnoisehun)
+- **Status:** **Open to research collaborations, academic partnerships, and joint QPU experimental campaigns** *(Nyitott vagyok kutatási együttműködésekre és közös publikációkra)*.

@@ -2,7 +2,7 @@
 
 **Subject:** Request for arXiv endorsement in quant-ph (Empirical quantum parity benchmark)  
 **To:** [Insert Name of quant-ph author / endorser]  
-**From:** Máté Róbert (`silentnoisehun@gmail.com`)
+**From:** Máté Róbert (`materobi86@gmail.com`)
 
 ---
 
@@ -39,5 +39,10 @@ Sincerely,
 **Máté Róbert**  
 Independent Quantum Researcher  
 Budapest, Hungary  
-Email: `silentnoisehun@gmail.com`  
+Email: `materobi86@gmail.com`  
 GitHub: https://github.com/silentnoisehun
+
+
+---
+**Contact & Collaboration:** Máté Róbert — `materobi86@gmail.com`  
+*Open to research collaborations and academic partnerships / Nyitott vagyok kutatási együttműködésekre.*
